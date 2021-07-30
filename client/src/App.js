@@ -5,7 +5,7 @@ import Navbar from './components/layout/Navbar';
 import 'materialize-css/dist/css/materialize.min.css';
 import M from 'materialize-css/dist/js/materialize.min.js';
 import AuthState from './context/auth/AuthState';
-import Register from './components/auth/Register';
+import Footer from './components/layout/Footer';
 
 const App = () => {
   useEffect(() => {
@@ -16,9 +16,7 @@ const App = () => {
     <AuthState>
       <Router>
         <Navbar />
-        <Switch>
-          <Route exact path='/register' component={Register} />
-        </Switch>
+        <Footer />
       </Router>
     </AuthState>
   );
