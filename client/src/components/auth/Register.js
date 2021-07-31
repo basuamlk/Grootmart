@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 // import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
+import { Link, withRouter } from 'react-router-dom';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -12,7 +13,8 @@ const Register = (props) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      // redirect in react
+      props.history.push('/dashboard');
     }
 
     if (error === 'User already exists') {
@@ -54,9 +56,7 @@ const Register = (props) => {
 
   return (
     <div className='row'>
-      <h1>
-        Account <span className='text-primary'>Register</span>
-      </h1>
+      <h1>Account Register</h1>
       <form onSubmit={onSubmit}>
         <div className='input-field'>
           <input
@@ -108,14 +108,19 @@ const Register = (props) => {
           />
           <label htmlFor='password2'>Confirm Password</label>
         </div>
-        <input
+        <button
           type='submit'
           value='Register'
-          className='btn btn-primary btn-block'
-        />
+          className={
+            isAuthenticated ? 'modal-close waves-effect' : 'waves-effect'
+          }
+        >
+          Register
+          <i className='material-icons right'>send</i>
+        </button>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default withRouter(Register);

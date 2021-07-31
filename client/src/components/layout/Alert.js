@@ -8,8 +8,8 @@ const Alerts = () => {
     alertContext.alerts.length > 0 &&
     alertContext.alerts.map((alert) => (
       <div key={alert.id} className={'red'}>
-        <i className='material-icons'>warning</i>
-        {alert.msg}
+        <strong>{alert.msg}</strong>
+        <i className='material-icons left'>info</i>
       </div>
     ))
   );
