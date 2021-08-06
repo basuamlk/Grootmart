@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import '../../App.css';
 
 const Footer = () => {
   return (
-    <footer className='page-footer green'>
+    <footer style={{ marginTop: '30px' }} className='page-footer green'>
       <div className='container'>
         <div className='row'>
           <div className='col l6 s12'>

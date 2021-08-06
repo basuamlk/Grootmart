@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Alerts from './Alert';
@@ -6,18 +6,52 @@ import AlertState from '../../context/alert/AlertState';
 import Register from '../auth/Register';
 import AuthContext from '../../context/auth/authContext';
 import Login from '../auth/Login';
+import {
+  AppBar,
+  Modal,
+  Toolbar,
+  IconButton,
+  Badge,
+  MenuItem,
+  Menu,
+  Typography,
+  Button,
+} from '@material-ui/core';
+import { ShoppingCart } from '@material-ui/icons';
+import useStyles from './navStyles';
+import logo from '../../assets/groot.png';
 
 const Navbar = ({ icon, title }) => {
+  const classes = useStyles();
   const authContext = useContext(AuthContext);
+  const [open, setOpen] = useState(false);
+  const [regBtnPress, setRegBtnPress] = useState(false);
 
   const { isAuthenticated, logout, user } = authContext;
 
   const onLogout = () => {
     logout();
   };
+
+  // Open or Close Modal
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleLoginOpen = () => {
+    setOpen(true);
+    setRegBtnPress(false);
+  };
+
+  const handleRegisterOpen = () => {
+    setOpen(true);
+    setRegBtnPress(true);
+  };
+
   //Hide or Show logout
   const authLinks = (
-    <ul className='right hide-on-med-and-down'>
+    <ul className='authLinks'>
       <li>Hello, {user && user.name} </li>
       <li>
         <a onClick={onLogout}>
@@ -30,67 +64,94 @@ const Navbar = ({ icon, title }) => {
 
   const guestLinks = (
     <Fragment>
-      <a href='#' data-target='mobile-demo' className='sidenav-trigger'>
-        <i className='material-icons'>menu</i>
-      </a>
-      <ul className='right hide-on-med-and-down'>
+      <ul className='guestLinks'>
         <li>
-          <a href='#modal1' className='waves-effect modal-trigger'>
+          <Button color='inherit' onClick={handleRegisterOpen}>
             Sign Up
-          </a>
+          </Button>
         </li>
         <li>
-          <a href='#modal2' className='waves-effect modal-trigger'>
+          <Button color='inherit' onClick={handleLoginOpen}>
             Login
-          </a>
+          </Button>
         </li>
       </ul>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='account-modal'
+        aria-describedby='account-modal-description'
+      >
+        <AlertState>
+          <Alerts />
+          {regBtnPress ? <Register /> : <Login />}
+        </AlertState>
+      </Modal>
     </Fragment>
   );
 
   return (
-    <Fragment>
-      <nav style={{ marginBottom: '30px' }} className='green'>
-        <div className='nav-wrapper'>
-          <Link to='/'>
-            <i className={icon}></i>
-            {title}
-          </Link>
+    <AppBar position='fixed' className={classes.appbar} color='inherit'>
+      <Toolbar>
+        <Typography varient='h6' className={classes.title} color='inherit'>
+          <img src={logo} alt={title} height='25px' className={classes.image} />
+          {title}
+        </Typography>
+        <div className={classes.grow} />
+        <div className={classes.button}>
           {isAuthenticated ? authLinks : guestLinks}
         </div>
-      </nav>
-
-      <ul className='sidenav' id='mobile-demo'>
-        <li>
-          <a href='#'>Sign Up</a>
-        </li>
-        <li>
-          <a href='#'>Login</a>
-        </li>
-      </ul>
-
-      <div id='modal1' className='modal'>
-        <div className='modal-content'>
-          <AlertState>
-            <Alerts />
-            <Register />
-          </AlertState>
-        </div>
-        <div className='modal-footer' />
-      </div>
-
-      <div id='modal2' className='modal'>
-        <div className='modal-content'>
-          <AlertState>
-            <Alerts />
-            <Login />
-          </AlertState>
-        </div>
-        <div className='modal-footer' />
-      </div>
-    </Fragment>
+      </Toolbar>
+    </AppBar>
   );
 };
+{
+  /* <Link to='/'>
+            <i className={icon}></i>
+            {title}
+          </Link> */
+}
+// <Fragment>
+//   <nav style={{ marginBottom: '30px' }} className='green'>
+//     <div className='nav-wrapper'>
+//       <Link to='/'>
+//         <i className={icon}></i>
+//         {title}
+//       </Link>
+//       {isAuthenticated ? authLinks : guestLinks}
+//     </div>
+//   </nav>
+
+//   <ul className='sidenav' id='mobile-demo'>
+//     <li>
+//       <a href='#'>Sign Up</a>
+//     </li>
+//     <li>
+//       <a href='#'>Login</a>
+//     </li>
+//   </ul>
+
+//   <div id='modal1' className='modal'>
+//     <div className='modal-content'>
+//       <AlertState>
+//         <Alerts />
+//         <Register />
+//       </AlertState>
+//     </div>
+//     <div className='modal-footer' />
+//   </div>
+
+//   <div id='modal2' className='modal'>
+//     <div className='modal-content'>
+//       <AlertState>
+//         <Alerts />
+//         <Login />
+//       </AlertState>
+//     </div>
+//     <div className='modal-footer' />
+//   </div>
+// </Fragment>;
 
 Navbar.defaultProps = {
   title: 'Grootmart',

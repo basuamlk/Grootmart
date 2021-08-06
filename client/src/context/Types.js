@@ -18,3 +18,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const FETCH_ERROR = 'FETCH_ERROR';

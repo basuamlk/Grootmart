@@ -18,6 +18,7 @@ const Login = (props) => {
       setAlert(error, 'danger');
       clearErrors();
     }
+    // eslint-disable-next-line
   }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
@@ -43,7 +44,7 @@ const Login = (props) => {
 
   return (
     <div className='row'>
-      <h1>Account Register</h1>
+      <h1>Account Login</h1>
       <form onSubmit={onSubmit}>
         <div className='input-field'>
           <input

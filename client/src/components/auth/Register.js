@@ -1,8 +1,8 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 // import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const Register = (props) => {
   const alertContext = useContext(AlertContext);
@@ -55,7 +55,7 @@ const Register = (props) => {
   };
 
   return (
-    <div className='row'>
+    <Fragment>
       <h1>Account Register</h1>
       <form onSubmit={onSubmit}>
         <div className='input-field'>
@@ -119,7 +119,7 @@ const Register = (props) => {
           <i className='material-icons right'>send</i>
         </button>
       </form>
-    </div>
+    </Fragment>
   );
 };
 
