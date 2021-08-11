@@ -20,3 +20,5 @@ export const LOGOUT = 'LOGOUT';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
 export const FETCH_ERROR = 'FETCH_ERROR';
+export const FETCH_CART = 'FETCH_CART';
+export const ADD_PRODUCT = 'ADD_PRODUCT';

@@ -1,43 +1,36 @@
 import React from 'react';
-import '../../App.css';
+// import '../../App.css';
+import { Link } from 'react-router-dom';
+import { Box, Grid, Container, AppBar } from '@material-ui/core';
+import useStyles from './footerStyles';
 
 const Footer = () => {
+  const classes = useStyles();
   return (
-    <footer style={{ marginTop: '30px' }} className='page-footer green'>
-      <div className='container'>
-        <div className='row'>
-          <div className='col l6 s12'>
-            <h5 className='white-text'>Footer Content</h5>
-            <p className='grey-text text-lighten-4'>
-              You can use rows and columns here to organize your footer content.
-            </p>
-          </div>
-          <div className='col l4 offset-l2 s12'>
-            <h5 className='white-text'>Links</h5>
-            <ul>
-              <li>
-                <a className='grey-text text-lighten-3' href='#!'>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a className='grey-text text-lighten-3' href='#!'>
-                  About
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className='footer-copyright'>
-        <div className='container'>
-          © 2021 Copyright Text
-          <a className='grey-text text-lighten-4 right' href='#!'>
-            More Links
-          </a>
-        </div>
-      </div>
-    </footer>
+    <AppBar position='fixed' color='primary' className={classes.appBar}>
+      <Box
+        position='static'
+        bgcolor='primary.main'
+        color='primary.contrastText'
+      >
+        <Container maxWidth='lg'>
+          <Grid container spacing={5}>
+            <Grid item xs={12} sm={4}>
+              <Box borderBottom={1}>Links</Box>
+              <Box>
+                <Link to='/'>Home</Link>
+              </Box>
+              <Box>
+                <Link to='/dashboard'>Dashboard</Link>
+              </Box>
+            </Grid>
+          </Grid>
+          <Box textAlign='center' pt={{ xs: 5, sm: 10 }} pb={{ xs: 5, sm: 0 }}>
+            &copy; {new Date().getFullYear()} Copyright Text
+          </Box>
+        </Container>
+      </Box>
+    </AppBar>
   );
 };
 

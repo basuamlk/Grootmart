@@ -1,32 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../context/auth/authContext';
-import { Fragment } from 'react';
-import { Grid } from '@material-ui/core';
-import { commerce } from '../../lib/commerce';
 import ProductContext from '../../context/product/productContext';
 import Products from '../Products/Products';
 
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const productContext = useContext(ProductContext);
-  // const [products, setProducts] = useState([]);
 
-  const { fetchProducts, products } = productContext;
-  // Fetch All Products
-  // const fetchProducts = async () => {
-  //   const { data } = await commerce.products.list();
-  //   setProducts(data);
-  // };
-
+  const { fetchProducts, products, fetchCart, cart, addToCart } =
+    productContext;
   useEffect(() => {
     authContext.loadUser();
     fetchProducts();
+    fetchCart();
     //esline-disable-next-line
   }, []);
 
-  console.log(products);
-
-  return <Products products={products} />;
+  console.log(cart);
+  // Could have better performance without prop-drilling, instead use Context API to pass props
+  return <Products products={products} addToCart={addToCart} />;
 };
 
 export default Dashboard;
