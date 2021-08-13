@@ -7,7 +7,7 @@ import useStyles from './footerStyles';
 const Footer = () => {
   const classes = useStyles();
   return (
-    <AppBar position='fixed' color='primary' className={classes.appBar}>
+    <AppBar color='primary' className={classes.appBar}>
       <Box
         position='static'
         bgcolor='primary.main'

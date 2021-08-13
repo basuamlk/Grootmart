@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import {
   CssBaseline,
   Paper,
@@ -24,23 +24,16 @@ const steps = ['Shipping address', 'Payment details'];
 const Checkout = () => {
   const checkoutContext = useContext(CheckoutContext);
   const productContext = useContext(ProductContext);
-  const {
-    checkoutToken,
-    activeStep,
-    shippingData,
-    order,
-    error,
-    setShippingData,
-    setCheckoutToken,
-    nextStep,
-    backStep,
-  } = checkoutContext;
+  const [checkoutToken, setCheckoutToken] = useState(null);
+  const [activeStep, setActiveStep] = useState(0);
+  const [shippingData, setShippingData] = useState({});
+  const { order, error } = checkoutContext;
   const { cart } = productContext;
   const classes = useStyles();
   const history = useHistory();
 
-  //   const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const nextStep = () => setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const backStep = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   useEffect(() => {
     if (cart.id) {
@@ -67,7 +60,7 @@ const Checkout = () => {
   const test = (data) => {
     setShippingData(data);
 
-    nextStep(activeStep);
+    nextStep();
   };
 
   let Confirmation = () =>
