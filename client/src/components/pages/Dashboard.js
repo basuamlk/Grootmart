@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import AuthContext from '../../context/auth/authContext';
 import ProductContext from '../../context/product/productContext';
 import Products from '../Products/Products';
@@ -13,7 +13,7 @@ const Dashboard = () => {
     authContext.loadUser();
     fetchProducts();
     fetchCart();
-    //esline-disable-next-line
+    //eslint-disable-next-line
   }, []);
 
   console.log(cart);

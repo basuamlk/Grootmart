@@ -2,7 +2,15 @@ import React, { useReducer } from 'react';
 import ProductContext from './productContext';
 import ProductReducer from './productReducer';
 import { commerce } from '../../lib/commerce';
-import { FETCH_PRODUCTS, FETCH_CART, ADD_PRODUCT } from '../Types';
+import {
+  FETCH_PRODUCTS,
+  FETCH_CART,
+  ADD_PRODUCT,
+  UPDATE_CART,
+  REMOVE_ITEM,
+  EMPTY_CART,
+  REFRESH_CART,
+} from '../Types';
 
 const ProductState = (props) => {
   const initialState = {
@@ -40,7 +48,47 @@ const ProductState = (props) => {
 
     dispatch({
       type: ADD_PRODUCT,
-      payload: item,
+      payload: item.cart,
+    });
+  };
+
+  // Update Cart Quantity
+  const handleUpdateCartQty = async (lineItemId, quantity) => {
+    const response = await commerce.cart.update(lineItemId, { quantity });
+
+    dispatch({
+      type: UPDATE_CART,
+      payload: response.cart,
+    });
+  };
+
+  // Remove Items From Cart
+  const handleRemoveFromCart = async (lineItemId) => {
+    const response = await commerce.cart.remove(lineItemId);
+
+    dispatch({
+      type: REMOVE_ITEM,
+      payload: response.cart,
+    });
+  };
+
+  // Empty the Cart
+  const handleEmptyCart = async () => {
+    const response = await commerce.cart.empty();
+
+    dispatch({
+      type: EMPTY_CART,
+      payload: response.cart,
+    });
+  };
+
+  // Refresh the Cart
+  const refreshCart = async () => {
+    const newCart = await commerce.cart.refresh();
+
+    dispatch({
+      type: REFRESH_CART,
+      payload: newCart,
     });
   };
 
@@ -52,6 +100,10 @@ const ProductState = (props) => {
         fetchProducts,
         fetchCart,
         addToCart,
+        handleUpdateCartQty,
+        handleRemoveFromCart,
+        handleEmptyCart,
+        refreshCart,
       }}
     >
       {props.children}

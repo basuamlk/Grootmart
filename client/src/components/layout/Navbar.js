@@ -1,8 +1,6 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Alerts from './Alert';
-import AlertState from '../../context/alert/AlertState';
 import Register from '../auth/Register';
 import AuthContext from '../../context/auth/authContext';
 import Login from '../auth/Login';
@@ -12,8 +10,6 @@ import {
   Toolbar,
   IconButton,
   Badge,
-  MenuItem,
-  Menu,
   Typography,
   Button,
 } from '@material-ui/core';
@@ -61,7 +57,12 @@ const Navbar = ({ icon, title }) => {
         Logout
         <ExitToAppIcon />
       </Button>
-      <IconButton aria-label='Show cart items' color='inherit'>
+      <IconButton
+        component={Link}
+        to='/cart'
+        aria-label='Show cart items'
+        color='inherit'
+      >
         <Badge badgeContent={cart.total_items} color='secondary'>
           <ShoppingCart />
         </Badge>
