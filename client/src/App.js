@@ -6,7 +6,7 @@ import setAuthToken from './utils/setAuthToken';
 import AuthState from './context/auth/AuthState';
 import CheckoutState from './context/checkout/CheckoutState';
 import ProductState from './context/product/ProductState';
-import Footer from './components/layout/Footer';
+// import Footer from './components/layout/Footer';
 import Dashboard from './components/pages/Dashboard';
 import Checkout from './components/CheckoutForm/Checkout/Checkout';
 import Cart from './components/cart/Cart';
@@ -40,7 +40,6 @@ const App = () => {
                     <PrivateRoute exact path='/cart' component={Cart} />
                     <PrivateRoute exact path='/checkout' component={Checkout} />
                   </Switch>
-                  <Footer />
                 </Fragment>
               </Router>
             </ThemeProvider>
