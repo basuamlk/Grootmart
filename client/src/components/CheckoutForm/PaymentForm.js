@@ -11,7 +11,6 @@ import {
 import { loadStripe } from '@stripe/stripe-js';
 import { commerce } from '../../lib/commerce';
 import Review from './Review';
-
 let stripeKey;
 if (process.env.NODE_ENV !== 'production') {
   stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
@@ -22,8 +21,8 @@ if (process.env.NODE_ENV !== 'production') {
 const stripePromise = loadStripe(
   'pk_test_51JO0sMHHJ4wHPkUIyGozD6odMhaZeYXuOXos3a5cuSTGjIoj9hwy8BKqw4wOdvEwla8otJ7CpJpSncusQAYyeVTY00MtdnuORg'
 );
-
-// console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+console.log(process.env.NODE_ENV);
+console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
 const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
   const checkoutContext = useContext(CheckoutContext);
