@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
@@ -10,3 +11,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 reportWebVitals();
+serviceWorkerRegistration.register();
