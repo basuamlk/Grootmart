@@ -27,7 +27,6 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
     event.preventDefault();
 
     if (!stripe || !elements) return;
-
     const cardElement = elements.getElement(CardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -35,9 +34,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
       card: cardElement,
     });
 
-    if (error) {
-      console.log('[error]', error);
-    } else {
+    try {
       const orderData = {
         line_items: checkoutToken.live.line_items,
         customer: {
@@ -83,6 +80,8 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
       handleCaptureCheckout(checkoutToken.id, orderData);
 
       nextStep();
+    } catch (err) {
+      console.error(`${error}`);
     }
   };
 
