@@ -1,6 +1,10 @@
 {
   "name": "Grootmart",
   "version": "1.0.0",
+  "engines": {
+    "node":"15.5.1",
+    "npm":"7.20.5"
+  },
   "description": "Grootmart shopping app",
   "main": "server.js",
   "scripts": {
