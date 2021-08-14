@@ -46,7 +46,7 @@ const Checkout = () => {
           setCheckoutToken(token);
         } catch {
           if (activeStep !== steps.length) {
-            console.log(activeStep);
+            // console.log(activeStep);
             history.push('/dashboard');
           }
         }

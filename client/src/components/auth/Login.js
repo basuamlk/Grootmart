@@ -2,13 +2,28 @@ import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import { withRouter } from 'react-router-dom';
+import useStyles from './styles';
+import LockOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import {
+  Container,
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Box,
+  Typography,
+  Modal,
+  Paper,
+} from '@material-ui/core';
 
 const Login = (props) => {
+  const classes = useStyles();
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
   const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { open, onModalClose } = props;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -39,50 +54,68 @@ const Login = (props) => {
         email,
         password,
       });
+      onModalClose();
     }
   };
 
+  const handleClose = () => {
+    onModalClose();
+  };
+
   return (
-    <div className='row'>
-      <h1>Account Login</h1>
-      <form onSubmit={onSubmit}>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='email'
-            type='email'
-            name='email'
-            value={email}
-            onChange={onChange}
-            required
-          />
-          <label htmlFor='email'>Email Address</label>
-        </div>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='password'
-            type='password'
-            name='password'
-            value={password}
-            onChange={onChange}
-            required
-            minLength='6'
-          />
-          <label htmlFor='password'>Password</label>
-        </div>
-        <button
-          type='submit'
-          value='Login'
-          className={
-            isAuthenticated ? 'modal-close waves-effect' : 'waves-effect'
-          }
-        >
-          Login
-          <i className='material-icons right'>send</i>
-        </button>
-      </form>
-    </div>
+    <Modal onClose={handleClose} open={open}>
+      <Container maxWidth='xs'>
+        <CssBaseline />
+        <Paper className={classes.paper} color='secondary'>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography variant='h5'>Sign in</Typography>
+          <form className={classes.form} onSubmit={onSubmit} noValidate>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              value={email}
+              onChange={onChange}
+              autoComplete='email'
+              autoFocus
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+              value={password}
+              onChange={onChange}
+              id='password'
+              autoComplete='current-password'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
+          <Box mt={8}>
+            <Typography variant='body2' color='textSecondary' align='center'>
+              Copyright &copy; {new Date().getFullYear()} Grootmart, Inc
+            </Typography>
+          </Box>
+        </Paper>
+      </Container>
+    </Modal>
   );
 };
 

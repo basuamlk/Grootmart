@@ -6,7 +6,6 @@ import AuthContext from '../../context/auth/authContext';
 import Login from '../auth/Login';
 import {
   AppBar,
-  Modal,
   Toolbar,
   IconButton,
   Badge,
@@ -83,7 +82,7 @@ const Navbar = ({ icon, title }) => {
   );
 
   return (
-    <AppBar position='fixed' className={classes.appbar} color='secondary'>
+    <AppBar position='fixed' className={classes.appbar} color='primary'>
       <Toolbar>
         <Typography
           varient='h6'
@@ -104,14 +103,11 @@ const Navbar = ({ icon, title }) => {
         <div className={classes.button}>
           {isAuthenticated ? authLinks : guestLinks}
         </div>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby='account-modal'
-          aria-describedby='account-modal-description'
-        >
-          {regBtnPress ? <Register /> : <Login />}
-        </Modal>
+        {regBtnPress ? (
+          <Register open={open} onModalClose={handleClose} />
+        ) : (
+          <Login open={open} onModalClose={handleClose} />
+        )}
       </Toolbar>
     </AppBar>
   );

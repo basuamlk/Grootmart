@@ -1,15 +1,30 @@
-import React, { Fragment, useState, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 // import AlertContext from '../../context/alert/alertContext';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 import { withRouter } from 'react-router-dom';
+import useStyles from './styles';
+import LockOutlinedIcon from '@material-ui/icons/LockOpenOutlined';
+import {
+  Container,
+  Avatar,
+  Button,
+  CssBaseline,
+  TextField,
+  Box,
+  Modal,
+  Typography,
+  Paper,
+} from '@material-ui/core';
 
 const Register = (props) => {
+  const classes = useStyles();
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
   const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { open, onModalClose } = props;
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -51,75 +66,94 @@ const Register = (props) => {
         email,
         password,
       });
+      onModalClose();
     }
   };
 
+  const handleClose = () => {
+    onModalClose();
+  };
+
   return (
-    <Fragment>
-      <h1>Account Register</h1>
-      <form onSubmit={onSubmit}>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='name'
-            type='text'
-            name='name'
-            value={name}
-            onChange={onChange}
-            required
-          />
-          <label htmlFor='name'>Name</label>
-        </div>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='email'
-            type='email'
-            name='email'
-            value={email}
-            onChange={onChange}
-            required
-          />
-          <label htmlFor='email'>Email Address</label>
-        </div>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='password'
-            type='password'
-            name='password'
-            value={password}
-            onChange={onChange}
-            required
-            minLength='6'
-          />
-          <label htmlFor='password'>Password</label>
-        </div>
-        <div className='input-field'>
-          <input
-            className='validate'
-            id='password2'
-            type='password'
-            name='password2'
-            value={password2}
-            onChange={onChange}
-            required
-            minLength='6'
-          />
-          <label htmlFor='password2'>Confirm Password</label>
-        </div>
-        <button
-          type='submit'
-          value='Register'
-          className={
-            isAuthenticated ? 'modal-close waves-effect' : 'waves-effect'
-          }
-        >
-          Register
-          <i className='material-icons right'>send</i>
-        </button>
-      </form>
-    </Fragment>
+    <Modal onClose={handleClose} open={open}>
+      <Container maxWidth='xs'>
+        <CssBaseline />
+        <Paper className={classes.paper} color='secondary'>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography variant='h5'>Sign up</Typography>
+          <form className={classes.form} onSubmit={onSubmit} noValidate>
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='name'
+              label='name'
+              name='name'
+              value={name}
+              onChange={onChange}
+              autoComplete='name'
+              autoFocus
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              id='email'
+              label='Email Address'
+              name='email'
+              value={email}
+              onChange={onChange}
+              autoComplete='email'
+              autoFocus
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              name='password'
+              label='Password'
+              type='password'
+              value={password}
+              onChange={onChange}
+              id='password'
+              autoComplete='new-password'
+            />
+            <TextField
+              variant='outlined'
+              margin='normal'
+              required
+              fullWidth
+              name='password2'
+              label='Confirm Password'
+              type='password'
+              value={password2}
+              onChange={onChange}
+              id='password2'
+              autoComplete='new-password'
+            />
+            <Button
+              type='submit'
+              fullWidth
+              variant='contained'
+              color='primary'
+              className={classes.submit}
+            >
+              Sign In
+            </Button>
+          </form>
+          <Box mt={8}>
+            <Typography variant='body2' color='textSecondary' align='center'>
+              Copyright &copy; {new Date().getFullYear()} Grootmart, Inc
+            </Typography>
+          </Box>
+        </Paper>
+      </Container>
+    </Modal>
   );
 };
 
