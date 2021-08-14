@@ -19,7 +19,9 @@ if (process.env.NODE_ENV !== 'production') {
   stripeKey = process.env.STRIPE_PUBLIC_KEY;
 }
 
-const stripePromise = loadStripe(stripeKey);
+const stripePromise = loadStripe(
+  'pk_test_51JO0sMHHJ4wHPkUIyGozD6odMhaZeYXuOXos3a5cuSTGjIoj9hwy8BKqw4wOdvEwla8otJ7CpJpSncusQAYyeVTY00MtdnuORg'
+);
 
 // console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 

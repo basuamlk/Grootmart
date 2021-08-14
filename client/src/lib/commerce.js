@@ -6,4 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   commerceKey = process.env.CHEC_PUBLIC_KEY;
 }
-export const commerce = new Commerce(commerceKey);
+export const commerce = new Commerce(
+  'pk_test_31293f573509c682797fff4eed2f2427892b71102a204'
+);
