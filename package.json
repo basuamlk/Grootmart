@@ -2,8 +2,8 @@
   "name": "Grootmart",
   "version": "1.0.0",
   "engines": {
-    "node":"15.5.1",
-    "npm":"7.20.5"
+    "node": "15.5.1",
+    "npm": "7.20.5"
   },
   "description": "Grootmart shopping app",
   "main": "server.js",
@@ -13,7 +13,7 @@
     "client": "npm start --prefix client",
     "clientinstall": "npm install-- prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": " cross-env NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "nodemon": "^2.0.12"
   }
 }
