@@ -1,25 +1,25 @@
-import React, { useContext } from 'react';
-import CheckoutContext from '../../context/checkout/checkoutContext';
-import ProductContext from '../../context/product/productContext';
-import { Typography, Button, Divider } from '@material-ui/core';
+import React, { useContext } from "react";
+import CheckoutContext from "../../context/checkout/checkoutContext";
+import ProductContext from "../../context/product/productContext";
+import { Typography, Button, Divider } from "@material-ui/core";
 import {
   Elements,
   CardElement,
   ElementsConsumer,
-} from '@stripe/react-stripe-js';
+} from "@stripe/react-stripe-js";
 
-import { loadStripe } from '@stripe/stripe-js';
-import { commerce } from '../../lib/commerce';
-import Review from './Review';
-let stripeKey;
-if (process.env.NODE_ENV !== 'production') {
-  stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
-} else {
-  stripeKey = process.env.STRIPE_PUBLIC_KEY;
-}
+import { loadStripe } from "@stripe/stripe-js";
+import { commerce } from "../../lib/commerce";
+import Review from "./Review";
+// let stripeKey;
+// if (process.env.NODE_ENV !== "production") {
+//   stripeKey = process.env.REACT_APP_STRIPE_PRIVATE_KEY;
+// } else {
+//   stripeKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+// }
 
 const stripePromise = loadStripe(
-  'pk_test_51JO0sMHHJ4wHPkUIyGozD6odMhaZeYXuOXos3a5cuSTGjIoj9hwy8BKqw4wOdvEwla8otJ7CpJpSncusQAYyeVTY00MtdnuORg'
+  "pk_test_51JO0sMHHJ4wHPkUIyGozD6odMhaZeYXuOXos3a5cuSTGjIoj9hwy8BKqw4wOdvEwla8otJ7CpJpSncusQAYyeVTY00MtdnuORg"
 );
 console.log(process.env.NODE_ENV);
 console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
@@ -36,7 +36,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
     const cardElement = elements.getElement(CardElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: 'card',
+      type: "card",
       card: cardElement,
     });
 
@@ -49,7 +49,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
           email: shippingData.email,
         },
         shipping: {
-          name: 'International',
+          name: "International",
           street: shippingData.address1,
           town_city: shippingData.city,
           county_state: shippingData.shippingSubdivision,
@@ -58,7 +58,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
         },
         fulfillment: { shipping_method: shippingData.shippingOption },
         payment: {
-          gateway: 'stripe',
+          gateway: "stripe",
           stripe: {
             payment_method_id: paymentMethod.id,
           },
@@ -95,7 +95,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
     <>
       <Review checkoutToken={checkoutToken} />
       <Divider />
-      <Typography variant='h6' gutterBottom style={{ margin: '20px 0' }}>
+      <Typography variant='h6' gutterBottom style={{ margin: "20px 0" }}>
         Payment method
       </Typography>
       <Elements stripe={stripePromise}>
@@ -104,7 +104,7 @@ const PaymentForm = ({ checkoutToken, nextStep, backStep, shippingData }) => {
             <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
               <CardElement />
               <br /> <br />
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Button variant='outlined' onClick={backStep}>
                   Back
                 </Button>
